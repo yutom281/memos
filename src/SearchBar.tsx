@@ -32,12 +32,13 @@ const SearchBar = () => {
 
   return (
     <div>
-      <input
+      <input 
+        title="search bar"
         type="text"
         value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onChange={(e) => { setSearchTerm(e.target.value); handleSearch() }}
       />
-      <button onClick={handleSearch}>Search</button>
+      {/* <button onClick={handleSearch}>Search</button> */}
 
       <ul>
         {searchResults.map((result) => (
