@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 function search(query: string, cb: ((value: any) => any)) {
-  return fetch(`book/${query}`, {
+  return fetch(`memo/${query}`, {
     headers: {
       Accept: "application/json"
     }
