@@ -16,4 +16,5 @@ def startup_db_client():
 def shutdown_db_client():
     app.mongodb_client.close()
 
-app.include_router(book_router, tags=["lessons"], prefix="/lesson")
+app.include_router(book_router, tags=["books"], prefix="/book")
+# app.include_router(lesson_router, tags=["lessons"], prefix="/lesson")

@@ -23,10 +23,10 @@ def list_books(request: Request):
     return books
 
 
-@router.get("/{id}", response_description="Get a single book by id", response_model=Book)
+@router.get("/{id}", response_description="Get a single book by id", response_model=List[Book])
 def find_book(id: str, request: Request):
     if (book := request.app.database["books"].find_one({"_id": id})) is not None:
-        return book
+        return [book]
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Book with ID {id} not found")
 
 
