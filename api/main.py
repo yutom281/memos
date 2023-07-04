@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from dotenv import dotenv_values
-from routes import router as book_router
+from routes import router as memo_router
 from mongo_util import mongo_client
 
 config = dotenv_values()
@@ -16,5 +16,4 @@ def startup_db_client():
 def shutdown_db_client():
     app.mongodb_client.close()
 
-app.include_router(book_router, tags=["books"], prefix="/book")
-# app.include_router(lesson_router, tags=["lessons"], prefix="/lesson")
+app.include_router(memo_router, tags=["memos"], prefix="/memo")

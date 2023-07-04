@@ -5,9 +5,11 @@ const MATCHING_ITEM_LIMIT = 25;
 
 interface Memo {
   _id: number;
-  title: string;
-  author: string;
-  synopsis: string;
+  date: string;
+  topic: string;
+  Good_Bad: string;
+  cause: string;
+  lesson: string;
 }
 
 class MemoSearch extends React.Component {
@@ -64,7 +66,7 @@ class MemoSearch extends React.Component {
         <ul>
           {memos.map((m: Memo) => (
             <li key={m._id}>
-              <strong>{m.title}</strong> - {m.author}
+              <strong>{m.topic}</strong> - {m.lesson}
             </li>
           ))}
         </ul>
