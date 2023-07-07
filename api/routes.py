@@ -14,6 +14,7 @@ def list_memos(request: Request):
 
 @router.get("/{topic}", response_description="Get memos by topic, using regex", response_model=List[Memo])
 def find_memo(topic: str, request: Request):
+    # select items whose 'topic' value contains the query string (case insensitive)
     memos = list(request.app.database["memos"].find({"topic": {"$regex": f".*{topic}.*", "$options": "i"}}))
     return memos
 
