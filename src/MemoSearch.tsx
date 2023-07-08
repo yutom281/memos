@@ -1,7 +1,7 @@
 import React from "react";
 import Client from "./Client";
 
-const MATCHING_ITEM_LIMIT = 25;
+const MATCHING_ITEM_LIMIT = 1000;
 
 interface Memo {
   _id: number;
@@ -10,13 +10,21 @@ interface Memo {
   Good_Bad: string;
   cause: string;
   lesson: string;
-}
+};
+
+type MemoSearchState = {
+  memos: Memo[],
+  searchValue: string,
+  index: number,
+  // showRemoveIcon: boolean,
+};
 
 class MemoSearch extends React.Component {
-  state = {
+  state: MemoSearchState = {
     memos: [],
     searchValue: "",
-    showRemoveIcon: false,
+    index: 0,
+    // showRemoveIcon: false,
   };
 
   handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,31 +37,44 @@ class MemoSearch extends React.Component {
     if (value === "") {
       this.setState({
         memos: [],
-        showRemoveIcon: false
+        index: 0,
+        // showRemoveIcon: false
       })
     } else {
-      this.setState({
-        showRemoveIcon: true
-      })
-
       Client.search(value, memos => {
         this.setState({
           memos: memos.slice(0, MATCHING_ITEM_LIMIT)
         })
       })
+      // this.setState({
+      //   showRemoveIcon: true
+      // })
     };
+  };
+
+  handleSearchNext = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== "Enter" || this.state.memos.length === 0) {
+      return;
+    }
+
+    const { memos, index } = this.state;
+    this.setState({
+      index: index >= memos.length -1 ? 0 : index +1
+    })
   };
 
   handleSearchCancel = () => {
     this.setState({
       memos: [],
       searchValue: "",
-      showRemoveIcon: false,
+      index: 0,
+      // showRemoveIcon: false,
     });
   };
   
   render() {
-    const { memos } = this.state;
+    const { memos, index } = this.state;
+    const memo = memos[index];
 
     return (
       <div>
@@ -61,18 +82,19 @@ class MemoSearch extends React.Component {
           title="search bar"
           type="text"
           onChange={this.handleSearchChange}
+          onKeyUp={this.handleSearchNext}
         />
 
         <ul>
-          {memos.map((m: Memo) => (
-            <li key={m._id}>
-              <strong>{m.topic}</strong> - {m.lesson}
+          {memos.length > 0 &&
+            <li key={memo._id}>
+              <strong>{memo.topic}</strong> - {memo.lesson}
             </li>
-          ))}
+          }
         </ul>
       </div>
     );
-  }
+  };
 }
 
 export default MemoSearch;

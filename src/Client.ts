@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-function search(query: string, cb: ((value: any) => any)) {
+function search(query: string, callback: ((value: any) => any)) {
   return fetch(`memo/${query}`, {
     headers: {
       Accept: "application/json"
@@ -7,7 +7,7 @@ function search(query: string, cb: ((value: any) => any)) {
   })
     .then(checkStatus)
     .then(parseJSON)
-    .then(cb);
+    .then(callback);
 }
 
 function checkStatus(response: Response) {
