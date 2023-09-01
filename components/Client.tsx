@@ -1,5 +1,5 @@
 function search(query: string, callback: ((value: any) => any)) {
-  return fetch(`/memos/${query}`, {
+  return fetch(`/memos/${encodeURIComponent(unslash(query))}`, {
     headers: {
       Accept: "application/json"
     }
@@ -21,6 +21,10 @@ function checkStatus(response: Response) {
 
 function parseJSON(response: Response) {
   return response.json();
+}
+
+function unslash(word: string) {
+  return word.replaceAll('/', '')
 }
 
 const Client = { search };

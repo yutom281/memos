@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Body, Request, Response, HTTPException, status
 from fastapi.encoders import jsonable_encoder
 from typing import List
+from urllib.parse import unquote
 
 from models import Memo, MemoUpdate
 
@@ -15,7 +16,7 @@ def list_memos(request: Request):
 @router.get("/{topic}", response_description="Get memos by topic, using regex", response_model=List[Memo])
 def find_memo(topic: str, request: Request):
     # select items whose 'topic' value contains the query string (case insensitive)
-    memos = list(request.app.database["memos"].find({"topic": {"$regex": f".*{topic}.*", "$options": "i"}}))
+    memos = list(request.app.database["memos"].find({"topic": {"$regex": f".*{unquote(topic)}.*", "$options": "i"}}))
     return memos
 
 
