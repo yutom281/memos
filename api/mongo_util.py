@@ -9,6 +9,6 @@ def mongo_client():
         config["ATLAS_URI"],
         authMechanism="MONGODB-X509",
         tls=True,
-        tlsCertificateKeyFile=config["CIRT_X509"],
+        tlsCertificateKeyFile=config["CERT_X509"],
         tlsCAFile=certifi.where()
         )
