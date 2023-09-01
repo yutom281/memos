@@ -1,5 +1,6 @@
 import React from "react";
 import Client from "./Client";
+import utilStyles from "../styles/utils.module.css";
 
 const MATCHING_ITEM_LIMIT = 1000;
 
@@ -16,7 +17,6 @@ type MemoSearchState = {
   memos: Memo[],
   searchValue: string,
   index: number,
-  // showRemoveIcon: boolean,
 };
 
 class MemoSearch extends React.Component {
@@ -24,7 +24,6 @@ class MemoSearch extends React.Component {
     memos: [],
     searchValue: "",
     index: 0,
-    // showRemoveIcon: false,
   };
 
   handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,7 +37,6 @@ class MemoSearch extends React.Component {
       this.setState({
         memos: [],
         index: 0,
-        // showRemoveIcon: false
       })
     } else {
       Client.search(value, memos => {
@@ -46,9 +44,6 @@ class MemoSearch extends React.Component {
           memos: memos.slice(0, MATCHING_ITEM_LIMIT)
         })
       })
-      // this.setState({
-      //   showRemoveIcon: true
-      // })
     };
   };
 
@@ -59,7 +54,7 @@ class MemoSearch extends React.Component {
 
     const { memos, index } = this.state;
     this.setState({
-      index: index >= memos.length -1 ? 0 : index +1
+      index: index >= memos.length - 1 ? 0 : index + 1
     })
   };
 
@@ -68,30 +63,38 @@ class MemoSearch extends React.Component {
       memos: [],
       searchValue: "",
       index: 0,
-      // showRemoveIcon: false,
     });
   };
-  
+
   render() {
     const { memos, index } = this.state;
     const memo = memos[index];
 
     return (
       <div>
-        <input
-          title="search bar"
-          type="text"
-          onChange={this.handleSearchChange}
-          onKeyUp={this.handleSearchNext}
-        />
-
-        <ul>
-          {memos.length > 0 &&
-            <li key={memo._id}>
-              <strong>{memo.topic}</strong> - {memo.lesson}
-            </li>
-          }
-        </ul>
+        <section className={utilStyles.container}>
+          <input
+            className={utilStyles.textbox}
+            title="search bar"
+            type="text"
+            onChange={this.handleSearchChange}
+            onKeyUp={this.handleSearchNext}
+          />
+        </section>
+        {memos.length > 0 &&
+          <section className={utilStyles.containerLeft}>
+            <p>
+              <strong>{index + 1}. {memo.topic}</strong>
+              <br />
+              {memo.lesson}
+            </p>
+            {/* <ul>
+              <li key={memo._id}>
+                {memo.topic} - {memo.lesson}
+              </li>
+            </ul> */}
+          </section>
+        }
       </div>
     );
   };

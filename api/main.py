@@ -16,4 +16,4 @@ def startup_db_client():
 def shutdown_db_client():
     app.mongodb_client.close()
 
-app.include_router(memo_router, tags=["memos"], prefix="/memo")
+app.include_router(memo_router, tags=["memos"], prefix="/memos")

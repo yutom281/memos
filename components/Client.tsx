@@ -1,6 +1,5 @@
-/* eslint-disable no-undef */
 function search(query: string, callback: ((value: any) => any)) {
-  return fetch(`memo/${query}`, {
+  return fetch(`/memos/${query}`, {
     headers: {
       Accept: "application/json"
     }
@@ -16,7 +15,7 @@ function checkStatus(response: Response) {
   }
   const error = new Error(`HTTP Error ${response.statusText}`);
   error.message = response.statusText;
-  console.log(error); // eslint-disable-line no-console
+  console.log(error);
   throw error;
 }
 

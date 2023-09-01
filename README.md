@@ -15,7 +15,8 @@
 N-tier, microservice web application
 
 ## Frontend
-TypeScript
+TypeScript  
+Next.js
 
 ## Backend
 Python
