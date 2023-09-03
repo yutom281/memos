@@ -2,9 +2,9 @@ name: NodeJS with Grunt
 
 on:
   push:
-    branches: [ "main", "yutom281-patch-1" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main", "yutom281-patch-1" ]
+    branches: [ "main" ]
 
 jobs:
   build:
