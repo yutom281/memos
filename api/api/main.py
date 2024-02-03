@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from dotenv import dotenv_values
 from routes import router as memo_router
-from mongo_util import mongo_client
+from mongodb import mongo_client
 
 config = dotenv_values()
 
