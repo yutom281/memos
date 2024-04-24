@@ -1,6 +1,5 @@
 # About this app
-シンプルで高速な閲覧に特化したメモ帳です。  
-大量のメモを素早く見返すのに役立ちます。
+Personal training
 
 # Setup
 1. Install Node.js and npm
